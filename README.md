@@ -12,3 +12,6 @@
 
 ## Kế hoạch thực hiện (draft)
 Xem tại: https://docs.google.com/document/d/1XKS5BFkYS84xDEkWBfr5Zf_ycowppHS8javq_c1pl3M/edit?tab=t.0
+
+## Dataset
+Nhóm đã sử dụng dataset PlantVillage, được lấy tại: https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset

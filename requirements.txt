@@ -1,0 +1,15 @@
+brotlicffi @ file:///croot/brotlicffi_1736182461069/work
+certifi @ file:///croot/certifi_1754570635119/work/certifi
+cffi @ file:///croot/cffi_1736182485317/work
+charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
+idna @ file:///work/perseverance-python-buildout/croot/idna_1728385935861/work
+kagglehub==0.3.13
+packaging @ file:///croot/packaging_1753775359799/work
+pycparser @ file:///home/task_175749564936714/conda-bld/pycparser_1757496040682/work
+PySocks @ file:///work/perseverance-python-buildout/croot/pysocks_1728386193338/work
+PyYAML==6.0.2
+requests @ file:///croot/requests_1756709366904/work
+setuptools==78.1.1
+tqdm @ file:///croot/tqdm_1738943501192/work
+urllib3 @ file:///croot/urllib3_1750775463400/work
+wheel==0.45.1

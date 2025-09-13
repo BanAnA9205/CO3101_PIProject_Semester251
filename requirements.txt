@@ -4,12 +4,18 @@ cffi @ file:///croot/cffi_1736182485317/work
 charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
 idna @ file:///work/perseverance-python-buildout/croot/idna_1728385935861/work
 kagglehub==0.3.13
+numpy==2.3.3
 packaging @ file:///croot/packaging_1753775359799/work
+pandas==2.3.2
 pycparser @ file:///home/task_175749564936714/conda-bld/pycparser_1757496040682/work
 PySocks @ file:///work/perseverance-python-buildout/croot/pysocks_1728386193338/work
+python-dateutil==2.9.0.post0
+pytz==2025.2
 PyYAML==6.0.2
 requests @ file:///croot/requests_1756709366904/work
 setuptools==78.1.1
+six==1.17.0
 tqdm @ file:///croot/tqdm_1738943501192/work
+tzdata==2025.2
 urllib3 @ file:///croot/urllib3_1750775463400/work
 wheel==0.45.1

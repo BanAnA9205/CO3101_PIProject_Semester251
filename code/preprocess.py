@@ -1,6 +1,7 @@
 import kagglehub
 import os
 import random
+import math
 import shutil
 import pandas as pd
 from tqdm import tqdm
@@ -25,7 +26,7 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
         test_size (float): Proportion of data to use for test set.
         seed (int): Random seed for reproducibility.
     """
-
+    
     assert abs(train_size + val_size + test_size - 1.0) < 1e-6, "Train, val, and test sizes must sum to 1."
 
     if target_path is None:
@@ -60,21 +61,22 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
         df_train = pd.DataFrame(columns=["file_name", "plant", "disease"])
         df_val = pd.DataFrame(columns=["file_name", "plant", "disease"])
         df_test = pd.DataFrame(columns=["file_name", "plant", "disease"])
+        train_records, val_records, test_records = [], [], []
 
         plants_to_keep = [p.lower() for p in plants_to_keep] if isinstance(plants_to_keep, list) else plants_to_keep.lower()
 
+        random.seed(seed)
         for item in tqdm(os.listdir(src), desc="Processing classes"):
             plant, disease = item.split("___")
             if plants_to_keep != "all" and plant.lower() not in plants_to_keep:
                 continue
 
             images = os.listdir(os.path.join(src, item))
-            random.seed(seed)
             random.shuffle(images)
 
             n_total = len(images)
-            n_train = int(n_total * train_size)
-            n_val = int(n_total * val_size)
+            n_train = math.ceil(n_total * train_size)
+            n_val = math.ceil(n_total * val_size)
 
             train_images = images[:n_train]
             val_images = images[n_train:n_train + n_val]
@@ -84,28 +86,33 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
                 new_name, _ = img.split("___")
                 new_name += ".jpg"
                 shutil.copy(os.path.join(src, item, img), os.path.join(train_dir, new_name))
-                df_train = pd.concat([df_train, pd.DataFrame({"file_name": [new_name], "plant": [plant], "disease": [disease]})], ignore_index=True)
+                train_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
             for img in val_images:
                 new_name, _ = img.split("___")
                 new_name += ".jpg"
                 shutil.copy(os.path.join(src, item, img), os.path.join(val_dir, new_name))
-                df_val = pd.concat([df_val, pd.DataFrame({"file_name": [new_name], "plant": [plant], "disease": [disease]})], ignore_index=True)
+                val_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
             for img in test_images:
                 new_name, _ = img.split("___")
                 new_name += ".jpg"
                 shutil.copy(os.path.join(src, item, img), os.path.join(test_dir, new_name))
-                df_test = pd.concat([df_test, pd.DataFrame({"file_name": [new_name], "plant": [plant], "disease": [disease]})], ignore_index=True)
+                test_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
-        # Reshuffle dataframes
-        df_train = df_train.sample(frac=1, random_state=seed).reset_index(drop=True)
-        df_val = df_val.sample(frac=1, random_state=seed).reset_index(drop=True)
-        df_test = df_test.sample(frac=1, random_state=seed).reset_index(drop=True)
+        # Reshuffle data
+        random.shuffle(train_records)
+        random.shuffle(val_records)
+        random.shuffle(test_records)
+
+        df_train = pd.DataFrame(train_records)
+        df_val = pd.DataFrame(val_records)
+        df_test = pd.DataFrame(test_records)
 
         df_train.to_csv(os.path.join(df_dir, "train_labels.csv"), index=False)
         df_val.to_csv(os.path.join(df_dir, "val_labels.csv"), index=False)
         df_test.to_csv(os.path.join(df_dir, "test_labels.csv"), index=False)
+
 
         print(f"Dataset files copied to: {dest}")
         print("Curating dataset to keep only specified plants:", plants_to_keep)

@@ -179,8 +179,7 @@ class InvertedResidual(nn.Module):
 
 
     def forward(self, x):
-        if self.expansion_factor != 1:
-            out = self.expand(x)
+        out = self.expand(x)
         out = self.depthwise(out)
         out = self.project(out)
 

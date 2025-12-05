@@ -204,6 +204,11 @@ class MobileNetV2(nn.Module):
             nn.ReLU6(inplace=True)
         )
 
+        # Note on the parameters:
+        # t: expansion factor
+        # c: output channels
+        # n: number of times to repeat the block
+        # s: stride for the first block in the sequence
         self.layers = nn.Sequential(
             # Bottleneck 1 (t=1, c=16, n=1, s=1)
             InvertedResidual(32, 16, stride=1, expand_ratio=1),
@@ -244,6 +249,10 @@ class MobileNetV2(nn.Module):
         )
 
         self.pooler = nn.AdaptiveAvgPool2d((1, 1))
+        # Note: Original MobileNetV2 did not use dropout, but
+        # the official PyTorch implementation includes it.
+        # (see: https://github.com/pytorch/vision/blob/main/torchvision/models/mobilenetv2.py)
+        self.dropout = nn.Dropout(0.2)
         self.fc = nn.Linear(1280, n_classes)
 
         self._init_weights()
@@ -256,6 +265,7 @@ class MobileNetV2(nn.Module):
         
         x = self.pooler(x)
         x = torch.flatten(x, 1)
+        x = self.dropout(x)
         x = self.fc(x)
         return x
 

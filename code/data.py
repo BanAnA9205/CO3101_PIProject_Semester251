@@ -43,6 +43,7 @@ class ImgDataset(Dataset):
             .sort_values(["plant", "disease"], ignore_index=True)
         )
 
+        # a mapping from (plant, disease) to class index
         self.class_to_idx = {
             (self.classes.iloc[i, 0], self.classes.iloc[i, 1]): i 
             for i in range(len(self.classes))

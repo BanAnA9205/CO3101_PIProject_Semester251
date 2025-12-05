@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from lecun import lecun_normal_init_
+from normal_init import kaiming_normal_init_, lecun_normal_init_
 
 # A standard implementation of a Residual Block
 class ResidualBlock(nn.Module):
@@ -40,7 +40,7 @@ class ResidualBlock(nn.Module):
 
         out = self.conv1(x)
         out = self.norm1(out)
-        out = F.relu(out)
+        out = F.relu(out, inplace=True)
 
         out = self.conv2(out)
         out = self.norm2(out)
@@ -51,9 +51,10 @@ class ResidualBlock(nn.Module):
         if self.use_res:
             out += id
 
-        out = F.relu(out)
+        out = F.relu(out, inplace=True)
 
         return out
+
 
 class ResNet18(nn.Module):
     def __init__(
@@ -83,13 +84,28 @@ class ResNet18(nn.Module):
         self.pooler = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512, n_classes)
 
-        # LeCun weight initialization
+        self._init_weights()
+
+
+    def _init_weights(self):
         for m in self.modules():
-            if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
+            if isinstance(m, nn.Conv2d):
+                # Kaiming weight initialization
+                kaiming_normal_init_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+
+            elif isinstance(m, nn.Linear):
+                # LeCun weight initialization
                 lecun_normal_init_(m.weight)
                 if m.bias is not None:
                     nn.init.zeros_(m.bias)
-                
+            
+            elif isinstance(m, nn.BatchNorm2d):
+                # Initialize weight to 1 (for gammas) and bias to 0 (for betas)
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
 
     def _make_layer(self, block, out_channels, n_blocks, stride = 1):
         down_sample = None
@@ -119,7 +135,7 @@ class ResNet18(nn.Module):
     def forward(self, x):
         out = self.convin(x)
         out = self.bnin(out)
-        out = F.relu(out)
+        out = F.relu(out, inplace=True)
         out = self.maxpool(out)
 
         out = self.layer1(out)

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from normal_init import kaiming_normal_init_, lecun_normal_init_
+from utils import kaiming_normal_init_, lecun_normal_init_
 
 class DepthwiseSeparableConv(nn.Module):
     def __init__(
@@ -140,17 +140,17 @@ class InvertedResidual(nn.Module):
         in_channels: int,
         out_channels: int,
         stride: int,
-        expansion_factor: int
+        expand_ratio: int
     ) -> None:
         super(InvertedResidual, self).__init__()
-        self.expansion_factor = expansion_factor
+        self.expand_ratio = expand_ratio
 
-        mid_channels = int(round(in_channels * expansion_factor))
+        mid_channels = int(round(in_channels * expand_ratio))
 
         # We only use a residual connection if dimensions match
         self.use_residual = (stride == 1 and in_channels == out_channels)
         
-        if expansion_factor != 1:
+        if expand_ratio != 1:
             self.expand = nn.Sequential(
                 nn.Conv2d(in_channels, mid_channels, kernel_size=1, bias=False),
                 nn.BatchNorm2d(mid_channels),

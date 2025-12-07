@@ -10,7 +10,8 @@ class ImgDataset(Dataset):
         df: pd.DataFrame,
         img_dir: str,
         mode: str = "RGB",
-        transform: T.Compose | None = None
+        transform: T.Compose | None = None,
+        classes: list | None = None
     ):
         """
         Custom image dataset that maps (plant, disease) pairs to integer class labels.
@@ -24,6 +25,9 @@ class ImgDataset(Dataset):
                 Image color mode, e.g., "RGB" or "L". Defaults to "RGB".
             transform (torchvision.transforms.Compose, optional):
                 Transformations applied to each image. Defaults to `ToTensor()`.
+            classes (list, optional):
+                List of unique (plant, disease) pairs. If None, it will be
+                generated from the DataFrame. Defaults to None.
         """
         # csv should have 3 columns: file_name, plant, disease
         assert df is not None, "Dataframe is None"
@@ -37,11 +41,14 @@ class ImgDataset(Dataset):
         self.transform = transform if transform is not None else T.ToTensor()
 
         # each class is a unique (plant, disease) pair
-        self.classes = (
-            self.df[["plant", "disease"]]
-            .drop_duplicates()
-            .sort_values(["plant", "disease"], ignore_index=True)
-        )
+        if classes is not None:
+            self.classes = classes
+        else:
+            self.classes = (
+                self.df[["plant", "disease"]]
+                .drop_duplicates()
+                .sort_values(["plant", "disease"], ignore_index=True)
+            )
 
         # a mapping from (plant, disease) to class index
         self.class_to_idx = {

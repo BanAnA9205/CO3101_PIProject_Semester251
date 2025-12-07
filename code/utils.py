@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 
+
 def calculate_fan_in(tensor):
     """
     Calculate the fan-in (number of input units) for a given weight tensor.

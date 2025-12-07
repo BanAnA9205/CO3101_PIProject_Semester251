@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from normal_init import kaiming_normal_init_, lecun_normal_init_
+from utils import kaiming_normal_init_, lecun_normal_init_
 
 class VGGBlock(nn.Module):
     def __init__(
@@ -50,11 +50,11 @@ class VGG16(nn.Module):
         # Block 5: 3 convs, 512 channels
 
         self.features = nn.Sequential(
-            VGGBlock(n_channels, 64, num_convs=2),
-            VGGBlock(64, 128, num_convs=2),
-            VGGBlock(128, 256, num_convs=3),
-            VGGBlock(256, 512, num_convs=3),
-            VGGBlock(512, 512, num_convs=3),
+            VGGBlock(n_channels, 64, n_convs=2),
+            VGGBlock(64, 128, n_convs=2),
+            VGGBlock(128, 256, n_convs=3),
+            VGGBlock(256, 512, n_convs=3),
+            VGGBlock(512, 512, n_convs=3),
         )
 
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))

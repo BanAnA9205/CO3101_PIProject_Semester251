@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from normal_init import kaiming_normal_init_, lecun_normal_init_
+from utils import kaiming_normal_init_, lecun_normal_init_
 
 # A standard implementation of a Residual Block
 class ResidualBlock(nn.Module):

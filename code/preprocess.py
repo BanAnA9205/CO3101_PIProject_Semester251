@@ -66,8 +66,13 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
         plants_to_keep = [p.lower() for p in plants_to_keep] if isinstance(plants_to_keep, list) else plants_to_keep.lower()
 
         random.seed(seed)
+        
+        # used to create unique names for images without plant-disease info
+        unnamed_counter = 0 
+
         for item in tqdm(os.listdir(src), desc="Processing classes"):
             plant, disease = item.split("___")
+
             if plants_to_keep != "all" and plant.lower() not in plants_to_keep:
                 continue
 
@@ -83,20 +88,32 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
             test_images = images[n_train + n_val:]
 
             for img in train_images:
-                new_name, _ = img.split("___")
-                new_name += ".jpg"
+                try:
+                    new_name, _ = img.split("___")
+                    new_name += ".jpg"
+                except ValueError:
+                    new_name = f"unnamed_{unnamed_counter}.jpg"
+                    unnamed_counter += 1
                 shutil.copy(os.path.join(src, item, img), os.path.join(train_dir, new_name))
                 train_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
             for img in val_images:
-                new_name, _ = img.split("___")
+                try:
+                    new_name, _ = img.split("___")
+                except ValueError:
+                    new_name = f"unnamed_{unnamed_counter}.jpg"
+                    unnamed_counter += 1
                 new_name += ".jpg"
                 shutil.copy(os.path.join(src, item, img), os.path.join(val_dir, new_name))
                 val_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
             for img in test_images:
-                new_name, _ = img.split("___")
-                new_name += ".jpg"
+                try:
+                    new_name, _ = img.split("___")
+                    new_name += ".jpg"
+                except ValueError:
+                    new_name = f"unnamed_{unnamed_counter}.jpg"
+                    unnamed_counter += 1
                 shutil.copy(os.path.join(src, item, img), os.path.join(test_dir, new_name))
                 test_records.append({"file_name": new_name, "plant": plant, "disease": disease})
 
@@ -121,4 +138,4 @@ def preprocess( DATASET_NAME: str = "abdallahalidev/plantvillage-dataset",
         print("An error occurred while downloading or curating the dataset:", e)
 
 if __name__ == "__main__":
-    preprocess(plants_to_keep=["apple", "corn", "grape", "peach", "potato", "strawberry"])
+    preprocess(plants_to_keep=["apple", "corn_(maize)", "grape", "peach", "potato", "strawberry"])

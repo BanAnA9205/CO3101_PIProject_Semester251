@@ -1,7 +1,13 @@
+jupyter_client==8.6.3
+jupyter_core==5.8.1
 kagglehub==0.3.13
+matplotlib==3.10.7
+matplotlib-inline==0.1.7
 numpy==2.3.3
-pandas==2.3.3
-Pillow==11.3.0
+pandas==2.3.2
+pillow==11.3.0
+scikit-learn==1.7.2
+seaborn==0.13.2
 torch==2.8.0
 torchvision==0.23.0
 tqdm==4.67.1

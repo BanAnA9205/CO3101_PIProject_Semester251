@@ -51,7 +51,7 @@ https://drive.google.com/drive/folders/1MdoFeMnX-bEqPNPBgCnyrBtwGX4xHtdK
 
 ### Training Configuration
 
--   Optimizer: Adam
+-   Optimizer: AdamW
 -   Learning rate: 0.0002
 -   Batch size: 32
 -   Weight decay: 0.001

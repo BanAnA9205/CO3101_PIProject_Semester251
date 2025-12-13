@@ -87,6 +87,7 @@ https://drive.google.com/drive/folders/1MdoFeMnX-bEqPNPBgCnyrBtwGX4xHtdK
 
 ## 🧾 Code & Data Availability
 
-Source code: https://github.com/BanAnA9205/CO3101_PIProject_Semester251\
+Source code: https://github.com/BanAnA9205/CO3101_PIProject_Semester251
+
 Curated dataset:
 https://drive.google.com/drive/folders/1MdoFeMnX-bEqPNPBgCnyrBtwGX4xHtdK

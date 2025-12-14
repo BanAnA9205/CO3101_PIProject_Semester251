@@ -91,3 +91,7 @@ Source code: https://github.com/BanAnA9205/CO3101_PIProject_Semester251
 
 Curated dataset:
 https://drive.google.com/drive/folders/1MdoFeMnX-bEqPNPBgCnyrBtwGX4xHtdK
+
+## Video presentation
+
+Our group's presentation can be viewed here: https://www.youtube.com/watch?v=JwhVhIja_9M

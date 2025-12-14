@@ -7,6 +7,12 @@ diseases across several crop species with high accuracy.
 The work was conducted as part of the **Programming Integration Project
 (CO3101)** at **Ho Chi Minh City University of Technology**.
 
+## Video presentation
+
+Our group's presentation can be viewed here: https://www.youtube.com/watch?v=JwhVhIja_9M
+
+The slides we used for our presentation can be view here: https://www.canva.com/design/DAG7Nmcjac8/0vaQe_hqMMY-RypLO3plRA/view?utm_content=DAG7Nmcjac8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h86f9c836a9
+
 ## 📌 Project Information
 
 **Project Title:** RGB Image-Based Disease Detection in Plants with
@@ -91,7 +97,3 @@ Source code: https://github.com/BanAnA9205/CO3101_PIProject_Semester251
 
 Curated dataset:
 https://drive.google.com/drive/folders/1MdoFeMnX-bEqPNPBgCnyrBtwGX4xHtdK
-
-## Video presentation
-
-Our group's presentation can be viewed here: https://www.youtube.com/watch?v=JwhVhIja_9M

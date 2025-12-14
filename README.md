@@ -11,7 +11,7 @@ The work was conducted as part of the **Programming Integration Project
 
 Our group's presentation can be viewed here: https://www.youtube.com/watch?v=JwhVhIja_9M
 
-The slides we used for our presentation can be view here: https://www.canva.com/design/DAG7Nmcjac8/0vaQe_hqMMY-RypLO3plRA/view?utm_content=DAG7Nmcjac8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h86f9c836a9
+The slides we used for our presentation can be viewed here: https://www.canva.com/design/DAG7Nmcjac8/0vaQe_hqMMY-RypLO3plRA/view?utm_content=DAG7Nmcjac8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h86f9c836a9
 
 ## 📌 Project Information
 
